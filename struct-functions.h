@@ -1,0 +1,12 @@
+void append_disciplina(Aux_di *di);
+void append_aluno(Aux_al *al);
+void print_al(Aux_al *al);
+void print_di(Aux_di *di);
+void cadastrar_alunos(Aux_al *al);
+void cadastrar_disciplinas(Aux_di *di);
+void remove_al(Aux_al *al);
+void remove_di(Aux_di *di);
+Aluno * buscar_aluno(int codigo, Aux_al *al);
+Disciplina *buscar_disciplina(int codigo, Aux_di* di);
+void free_al(Aux_al *al);
+void free_di(Aux_di *di);
