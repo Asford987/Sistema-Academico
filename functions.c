@@ -83,13 +83,30 @@ Semestre* completar_semestre(char* nome){
 void save_al(Aux_al* al){
     FILE* f = fopen("alunos.txt", "w");
     if(f==NULL) return;
+    char line[99];
+    int i = 0;
+    int codigo;
+    char nome[70];
+    char cpf[12];
+    while(fscanf(f, "%99[^\n]\n", line) == 1){
+        if(!(i%3)){
+            // terminar manip aqui
+            codigo = stoi(line);
+        } else if(i%3 == 1){
+
+        }
+        else{
+
+        }
+        i++;
+    }
 
 }
 
 void save_di(Aux_di* di){
     FILE* f = fopen("disciplinas.txt", "w");
     if(f==NULL) return;
-    
+
 }
 
 void save_semester(Semestre* sem){
