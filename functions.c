@@ -88,11 +88,22 @@ Aux_di* completar_disciplina(){
     }
 }
 
-Semestre* completar_semestre(char* nome){
+Semestre* completar_semestre(char* nome, Aux_al* al, Aux_di* di){
     FILE* f = fopen(strcat(strcat("semestre",nome),".txt"), "r");
     if(f==NULL) return create_sem();
+    int codigo_aluno = 0, codigo_disciplina = 0;
+    Semestre* sem = create_sem();
     while(!feof(f)){
+        Aluno_Disciplina* ad = create_node();
+        fscanf(f,"%d",&codigo_aluno);
+        fscanf(f,"%d",&codigo_disciplina);
 
+        Aluno* a = buscar_aluno(codigo_aluno,al);
+        Disciplina* d = buscar_disciplina(codigo_disciplina,di);
+        
+        ad -> aluno = a;
+        ad -> disciplina = d;
+        
     }
 }
 
@@ -136,5 +147,11 @@ void save_di(Aux_di* di){
 void save_semester(Semestre* sem){
     FILE* f = fopen(strcat(strcat("semestre",sem->nome),".txt"), "w");
     if(f==NULL) return;
-
+    Aluno_Disciplina* aux = sem->first;
+    while(aux){
+        fprintf(f,"%d",aux->aluno->codigo);
+        fprintf(f,"%d",aux->disciplina->codigo);
+        fprintf(f,"\n");
+        aux = aux->prox;
+    }
 }
