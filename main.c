@@ -4,13 +4,11 @@
 
 
 int main(){
-
-    Aux_al *al=(Aux_al*)malloc(sizeof(Aux_al));//*al=completar_alunos(), se vazio aponta pra null nas duas entradas
-    Aux_di *di=(Aux_di*)malloc(sizeof(Aux_di));// ' ' 
-    //al=completar_alunos();
+    Aux_al *al=create_al();
+    Aux_di *di=create_di();
     menu_alunos(al,di);
-    //save_al();
-    //save_di();
+    save_al(al);
+    save_di(di);
     free_al(al);
     free_di(di);
 }

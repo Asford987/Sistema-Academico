@@ -1,5 +1,7 @@
 Aluno_Disciplina* buscar_aluno_disciplina(Aluno *aluno,Disciplina *disciplina,Semestre *sem);
 int append_aluno_disciplina(Aluno *aluno,Disciplina *disciplina,Semestre *sem);
+Aluno_Disciplina* create_node();
+Semestre* create_sem();
 void free_semestre(Semestre *sem);
 void insercao_semestre(Semestre *sem,Aux_al *al,Aux_di *di);
 int remove_aluno_disciplina(Semestre *sem,Aux_al *al,Aux_di *di);

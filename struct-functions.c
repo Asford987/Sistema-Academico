@@ -1,21 +1,52 @@
 #include "includes.h"
 
 
-Aluno* new_al(){
-    return (Aluno*)calloc(1,sizeof(Aluno));
-}
+// Aluno* new_al(){
+//     return (Aluno*)calloc(1,sizeof(Aluno));
+// }
 
-Disciplina* new_di(){
-    return (Disciplina*)calloc(1,sizeof(Disciplina));
-}
+// Disciplina* new_di(){
+//     return (Disciplina*)calloc(1,sizeof(Disciplina));
+// }
 
 Aux_al* create_al(){
     return (Aux_al*)calloc(1,sizeof(Aux_al));
-    
+
 }
 
 Aux_di* create_di(){
     return (Aux_di*)calloc(1,sizeof(Aux_di));
+}
+
+int input_disciplina(Aux_di *di, char *nome, char *prof, int codigo, int creditos){
+    Disciplina *aux=di->first;
+    while(aux!=NULL){
+        if(aux->codigo==codigo){
+            printf("Essa Disciplina ja esta na cadastrada\n");
+            return 0;
+        }
+        aux=aux->prox;
+    }
+    Disciplina *new;
+    new = (Disciplina*)malloc(sizeof(Disciplina));
+    if(di->first==NULL){
+        di->first=new;
+        di->end=new;
+        strcpy(new->nome,nome);
+        strcpy(new->prof,prof);
+        new->codigo=codigo;
+        new->creditos=creditos;
+        new->prox=NULL;
+        return 1;
+    }
+    strcpy(new->nome,nome);
+    strcpy(new->prof,prof);
+    new->codigo=codigo;
+    new->creditos=creditos;
+    new->prox=NULL;
+    di->end->prox=new;
+    di->end=new;
+    return 1;
 }
 
 void append_disciplina(Aux_di *di){
@@ -31,50 +62,15 @@ void append_disciplina(Aux_di *di){
     scanf("%d",&codigo);
     printf("\nDigite o numero de creditos da disciplina: ");
     scanf("%d",&creditos);
-    Disciplina *aux=di->first;
-    while(aux!=NULL){
-        if(aux->codigo==codigo){
-            printf("Essa Disciplina ja esta na cadastrada\n");
-            return ;
-        }
-        aux=aux->prox;
-    }
-    Disciplina *new;
-    new = (Disciplina*)malloc(sizeof(Disciplina));
-    if(di->first==NULL){
-        di->first=new;
-        di->end=new;
-        strcpy(new->nome,nome);
-        strcpy(new->prof,prof);
-        new->codigo=codigo;
-        new->creditos=creditos;
-        new->prox=NULL;
-        return;
-    }
-    strcpy(new->nome,nome);
-    strcpy(new->prof,prof);
-    new->codigo=codigo;
-    new->creditos=creditos;
-    new->prox=NULL;
-    di->end->prox=new;
-    di->end=new;
+    input_disciplina(di,nome,prof,codigo,creditos);
 }
 
-void append_aluno(Aux_al *al){
-    char nome[DIM];
-    int codigo;
-    char cpf[CPF];
-    printf("Digite o nome: ");
-    scanf("%s",nome);
-    printf("\nDigite o codigo do aluno: ");
-    scanf("%d",&codigo);
-    printf("\nDigite o cpf: ");
-    scanf("%s",cpf);
+int input_aluno(Aux_al *al, char *nome, int codigo, char* cpf){
     Aluno *aux=al->first;
     while(aux!=NULL){
         if(aux->codigo==codigo){
             printf("Esse aluno ja esta cadastrado\n");
-            return ;
+            return 0;
         }
         aux=aux->prox;
     }
@@ -87,7 +83,7 @@ void append_aluno(Aux_al *al){
         new->codigo=codigo;
         new->prox=NULL;
         strcpy(new->cpf,cpf);
-        return;
+        return 1;
     }
     strcpy(new->nome,nome);
     new->codigo=codigo;
@@ -95,6 +91,20 @@ void append_aluno(Aux_al *al){
     strcpy(new->cpf,cpf);
     al->end->prox=new;
     al->end=new;
+    return 1;
+}
+
+void append_aluno(Aux_al *al){
+    char nome[DIM];
+    int codigo;
+    char cpf[CPF];
+    printf("Digite o nome: ");
+    scanf("%s",nome);
+    printf("\nDigite o codigo do aluno: ");
+    scanf("%d",&codigo);
+    printf("\nDigite o cpf: ");
+    scanf("%s",cpf);
+    input_aluno(al,nome,codigo,cpf);
 }
 
 void print_al(Aux_al *al){

@@ -1,5 +1,9 @@
 void append_disciplina(Aux_di *di);
+Aux_di* create_di();
+Aux_al* create_al();
 void append_aluno(Aux_al *al);
+int input_disciplina(Aux_di *di, char *nome, char *prof, int codigo, int creditos);
+int input_aluno(Aux_al *al, char *nome, int codigo, char* cpf);
 void print_al(Aux_al *al);
 void print_di(Aux_di *di);
 void cadastrar_alunos(Aux_al *al);
