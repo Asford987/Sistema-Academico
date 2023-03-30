@@ -67,22 +67,34 @@ Aux_al* completar_aluno(){
 Aux_di* completar_disciplina(){
     FILE* f = fopen("disciplinas.txt", "r");
     if(f==NULL) return create_di();
+    while(!feof(f)){
+
+    }
 }
 
 Semestre* completar_semestre(char* nome){
     FILE* f = fopen(strcat(strcat("semestre",nome),".txt"), "r");
     if(f==NULL) return create_sem();
+    while(!feof(f)){
+
+    }
 }
 
 void save_al(Aux_al* al){
+    FILE* f = fopen("alunos.txt", "w");
+    if(f==NULL) return;
 
 }
 
 void save_di(Aux_di* di){
-
+    FILE* f = fopen("disciplinas.txt", "w");
+    if(f==NULL) return;
+    
 }
 
 void save_semester(Semestre* sem){
+    FILE* f = fopen(strcat(strcat("semestre",sem->nome),".txt"), "w");
+    if(f==NULL) return;
 
 }
 // list_aluno* retrieve_student_data(char* file_name){
