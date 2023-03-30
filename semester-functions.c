@@ -2,12 +2,12 @@
 
 
 Semestre* create_sem(){
-    Semestre* sem = (Semestre*)malloc(sizeof(Semestre));
-    sem->first=NULL;
-    sem->end=NULL;
-    return sem;
+    return (Semestre*)calloc(1,sizeof(Semestre));
 }
 
+Aluno_Disciplina* create_node(){
+    return (Aluno_Disciplina*)calloc(1,sizeof(Aluno_Disciplina));
+}
 
 Aluno_Disciplina* buscar_aluno_disciplina(Aluno *aluno,Disciplina *disciplina,Semestre *sem){
     Aluno_Disciplina *aux=sem->first;
@@ -23,19 +23,17 @@ Aluno_Disciplina* buscar_aluno_disciplina(Aluno *aluno,Disciplina *disciplina,Se
 int append_aluno_disciplina(Aluno *aluno,Disciplina *disciplina,Semestre *sem){
     Aluno_Disciplina *aux=sem->first;
     if(aux==NULL){
-        Aluno_Disciplina *new=(Aluno_Disciplina*)malloc(sizeof(Aluno_Disciplina));
+        Aluno_Disciplina *new = create_node();
         new->aluno=aluno;
         new->disciplina=disciplina;
-        new->prox=NULL;
         sem->first=new;
         sem->end=new;
         return 1;
     }
     if(buscar_aluno_disciplina(aluno,disciplina,sem)!=NULL) return 0;
-    Aluno_Disciplina *new=(Aluno_Disciplina*)malloc(sizeof(Aluno_Disciplina));
+    Aluno_Disciplina *new= create_node();
     new->aluno=aluno;
     new->disciplina=disciplina;
-    new->prox=NULL;
     sem->end->prox=new;
     sem->end=new;
     return 1;

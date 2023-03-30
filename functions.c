@@ -83,7 +83,7 @@ Aux_di* completar_disciplina(){
         if(fscanf(f, "%99[^\n]\n", line) != 1){
             return NULL;
         }
-        dis->creditos = atof(line);
+        dis->creditos = (float)atof(line);
         fscanf(f, "%99[^\n]\n", line);
     }
 }
@@ -99,26 +99,38 @@ Semestre* completar_semestre(char* nome){
 void save_al(Aux_al* al){
     FILE* f = fopen("alunos.txt", "w");
     if(f==NULL) return;
-    
-    // while{
-    //     if(!(i%3)){
-    //         // terminar manip aqui
-    //         codigo = stoi(line);
-    //     } else if(i%3 == 1){
-    //         nome = line;
-    //     }
-    //     else{
+    Aluno* aux = al->first;
+    while(aux){
+        fprintf(f,"%d\n",aux->codigo);
+        
+        fprintf(f,"%s\n",aux->nome);
+        
+        fprintf(f,"%s\n",aux->cpf);
+        
+        fprintf(f,"\n");
 
-    //     }
-    //     i++;
-    // }
-
+        aux = aux->prox;
+    }
 }
 
 void save_di(Aux_di* di){
     FILE* f = fopen("disciplinas.txt", "w");
     if(f==NULL) return;
 
+    Disciplina* aux = di->first;
+    while(aux){
+        fprintf(f,"%d\n",aux->codigo);
+        
+        fprintf(f,"%s\n",aux->prof);
+        
+        fprintf(f,"%s\n",aux->nome);
+
+        fprintf(f,"%f",aux->creditos);
+        
+        fprintf(f,"\n");
+
+        aux = aux->prox;
+    }
 }
 
 void save_semester(Semestre* sem){
@@ -126,39 +138,3 @@ void save_semester(Semestre* sem){
     if(f==NULL) return;
 
 }
-// list_aluno* retrieve_student_data(char* file_name){
-//     FILE* f = fopen(file_name,"r");
-//     if(f == NULL){
-//     }
-//     int codigo;
-//     char nome[30];
-//     char cpf[12];
-//     int i = 0, step = 4;
-//     while(!feof(f)){
-//         fscanf(f,"%d",&codigo);
-//         for(int j=0;j<30;j++){
-            
-//         }
-
-//         i+=step;
-//     }
-// }
-// list_disciplina* retrieve_discipline_data(char* file_name){
-//     FILE* f = fopen(file_name,"r");
-//     if(f == NULL){
-//     }
-//     int codigo[4];
-//     char nome[70];
-//     char professor[70];
-//     float credito;
-//     int i = 0, step = 4;
-//     while(!feof(f)){
-//         for(int j = 0; j< 4; j++){
-//             fscanf(f,"%d",&codigo[j]);
-//         }
-//         for(int j=0;j<30;j++){
-
-//         }
-//         i+=step;
-//     }
-// }

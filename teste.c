@@ -11,5 +11,8 @@ typedef struct Aluno{
 
 
 int main(){
-    Aluno* al = (Aluno*)calloc(1,sizeof(Aluno));
+    Aluno* al = NULL;
+    if(!al) printf("1");
+    else printf("0");
+    return 0;
 }
