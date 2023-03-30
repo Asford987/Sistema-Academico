@@ -41,26 +41,21 @@ Aux_al* completar_aluno(){
     
     if(f==NULL) return create_al();
     
-    char line[99];
-    int codigo;
-    char nome[70];
-    char cpf[12];
+    char line[100];
     while(!feof(f)){
+        Aluno* al = new_aluno();
         if(fscanf(f, "%99[^\n]\n", line) != 1){
             return NULL;
         }
-        codigo = stoi(line);
+        al -> codigo = atoi(line);
         if(fscanf(f, "%99[^\n]\n", line) != 1){
             return NULL;
         }
-        strcpy(nome,line);
+        strcpy(al->nome,line);
         if(fscanf(f, "%99[^\n]\n", line) != 1){
             return NULL;
         }
-        strcpy(cpf,line);
-
-
-
+        strcpy(al->cpf,line);
         fscanf(f, "%99[^\n]\n", line);
     }
 }
@@ -68,8 +63,28 @@ Aux_al* completar_aluno(){
 Aux_di* completar_disciplina(){
     FILE* f = fopen("disciplinas.txt", "r");
     if(f==NULL) return create_di();
+    
+    char line[100];
+    
     while(!feof(f)){
-
+        Disciplina* dis = new_disciplina();
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        dis -> codigo = atoi(line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        strcpy(dis->prof,line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        strcpy(dis->nome,line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        dis->creditos = atof(line);
+        fscanf(f, "%99[^\n]\n", line);
     }
 }
 
