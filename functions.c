@@ -10,86 +10,148 @@ float rng_f(){
     return (float)(rand() % 100);
 }
 
-int rng_a(){
-    int aux = rand() % 100000;
-    if(1){ // TODO: verificar se ja existe
-        return aux;
-    }else{
-        return rng_a();
+int rng_codigo_aluno(){
+    FILE* f = fopen(".codaluno.txt", "r");
+    int num = rand() % 100000;
+    int aux;
+    while(!feof(f)){
+        fscanf(f,"%d",&aux);
+        if(num == aux) return rng_codigo_aluno();    
     }
+    FILE* f = fopen(".codaluno.txt","a");
+    fprintf(f,"%d",num);
+    return num;
+}
+
+int rng_codigo_disciplina(){
+    FILE* f = fopen(".codis.txt", "r");
+    int num = rand() % 100000;
+    int aux;
+    while(!feof(f)){
+        fscanf(f,"%d",&aux);
+        if(num == aux) return rng_codigo_disciplina();    
+    }
+    FILE* f = fopen(".codis.txt","a");
+    fprintf(f,"%d",num);
+    return num;
+}
+
+Aux_al* completar_aluno(){
+    FILE* f = fopen("alunos.txt", "r");
     
-}
-
-int rng_d(){
-    int aux = rand() % 10000;
-    if(1){ // TODO: verificar se ja existe
-        return aux;
-    }else{
-        return rng_d();
-    }
-}
-
-int array_comparator(int* a, int* b){
-    for(int i=0;i<sizeof(a)/sizeof(a[0]);i++){
-        if(a[i]!=b[i]) return 0;
-    }
-    return 1;
-}
-
-void store_data(FILE* f){
-    f = fopen("dados.txt","w");
-    if(f==NULL){
-        int d = 0;
-        printf("Falha em abrir arquivo!\n");
-        printf("Tentar novamente: 1\nCancelar: 2\n");
-        scanf("%d",&d);
-        if(d == 2){
-            char c='\0';
-            printf("Tem certeza? Todos os dados serão perdidos (Y/N): ");
-            scanf("%c",&c);
-            printf("\n");
-            if(c == 'y' || c == 'Y') return;
-            else store_data(f);
+    if(f==NULL) return create_al();
+    
+    char line[100];
+    while(!feof(f)){
+        Aluno* al = new_aluno();
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
         }
-        else store_data(f);
+        al -> codigo = atoi(line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        strcpy(al->nome,line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        strcpy(al->cpf,line);
+        fscanf(f, "%99[^\n]\n", line);
     }
-
 }
 
-// list_aluno* retrieve_student_data(char* file_name){
-//     FILE* f = fopen(file_name,"r");
-//     if(f == NULL){
-//     }
-//     int codigo;
-//     char nome[30];
-//     char cpf[12];
-//     int i = 0, step = 4;
-//     while(!feof(f)){
-//         fscanf(f,"%d",&codigo);
-//         for(int j=0;j<30;j++){
-            
-//         }
+Aux_di* completar_disciplina(){
+    FILE* f = fopen("disciplinas.txt", "r");
+    if(f==NULL) return create_di();
+    
+    char line[100];
+    
+    while(!feof(f)){
+        Disciplina* dis = new_disciplina();
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        dis -> codigo = atoi(line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        strcpy(dis->prof,line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        strcpy(dis->nome,line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        dis->creditos = (float)atof(line);
+        fscanf(f, "%99[^\n]\n", line);
+    }
+}
 
-//         i+=step;
-//     }
-// }
+Semestre* completar_semestre(char* nome, Aux_al* al, Aux_di* di){
+    FILE* f = fopen(strcat(strcat("semestre",nome),".txt"), "r");
+    if(f==NULL) return create_sem();
+    int codigo_aluno = 0, codigo_disciplina = 0;
+    Semestre* sem = create_sem();
+    while(!feof(f)){
+        Aluno_Disciplina* ad = create_node();
+        fscanf(f,"%d",&codigo_aluno);
+        fscanf(f,"%d",&codigo_disciplina);
 
-// list_disciplina* retrieve_discipline_data(char* file_name){
-//     FILE* f = fopen(file_name,"r");
-//     if(f == NULL){
-//     }
-//     int codigo[4];
-//     char nome[70];
-//     char professor[70];
-//     float credito;
-//     int i = 0, step = 4;
-//     while(!feof(f)){
-//         for(int j = 0; j< 4; j++){
-//             fscanf(f,"%d",&codigo[j]);
-//         }
-//         for(int j=0;j<30;j++){
+        Aluno* a = buscar_aluno(codigo_aluno,al);
+        Disciplina* d = buscar_disciplina(codigo_disciplina,di);
+        
+        ad -> aluno = a;
+        ad -> disciplina = d;
+        
+    }
+}
 
-//         }
-//         i+=step;
-//     }
-// }
+void save_al(Aux_al* al){
+    FILE* f = fopen("alunos.txt", "w");
+    if(f==NULL) return;
+    Aluno* aux = al->first;
+    while(aux){
+        fprintf(f,"%d\n",aux->codigo);
+        
+        fprintf(f,"%s\n",aux->nome);
+        
+        fprintf(f,"%s\n",aux->cpf);
+        
+        fprintf(f,"\n");
+
+        aux = aux->prox;
+    }
+}
+
+void save_di(Aux_di* di){
+    FILE* f = fopen("disciplinas.txt", "w");
+    if(f==NULL) return;
+
+    Disciplina* aux = di->first;
+    while(aux){
+        fprintf(f,"%d\n",aux->codigo);
+        
+        fprintf(f,"%s\n",aux->prof);
+        
+        fprintf(f,"%s\n",aux->nome);
+
+        fprintf(f,"%f",aux->creditos);
+        
+        fprintf(f,"\n");
+
+        aux = aux->prox;
+    }
+}
+
+void save_semester(Semestre* sem){
+    FILE* f = fopen(strcat(strcat("semestre",sem->nome),".txt"), "w");
+    if(f==NULL) return;
+    Aluno_Disciplina* aux = sem->first;
+    while(aux){
+        fprintf(f,"%d",aux->aluno->codigo);
+        fprintf(f,"%d",aux->disciplina->codigo);
+        fprintf(f,"\n");
+        aux = aux->prox;
+    }
+}
