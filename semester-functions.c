@@ -227,6 +227,8 @@ void menu_alunos(Aux_al *al,Aux_di *di){
             sem->first=NULL;
             strcpy(sem->nome,nome);
             menu_semestre(sem,al,di);
+            //save_sem();
+            free_semestre(sem);
             break;
         case 1:
             print_al(al);
@@ -247,8 +249,6 @@ void menu_alunos(Aux_al *al,Aux_di *di){
             remove_di(di);
             break;
         case 7:
-            //save_sem();
-            free_semestre(sem);
             return;
             break;
         default:
