@@ -1,14 +1,13 @@
 #include "includes.h"
 
+
+
+
 int main(){
 
     Aux_al *al=(Aux_al*)malloc(sizeof(Aux_al));//*al=completar_alunos(), se vazio aponta pra null nas duas entradas
     Aux_di *di=(Aux_di*)malloc(sizeof(Aux_di));// ' ' 
     //al=completar_alunos();
-    al->first=NULL;
-    al->end=NULL;
-    di->first=NULL;
-    di->end=NULL;
     menu_alunos(al,di);
     //save_al();
     //save_di();

@@ -1,6 +1,19 @@
 #include "includes.h"
 
 
+Aux_al* create_al(){
+    Aux_al* al = (Aux_al*)malloc(sizeof(Aux_al));
+    al->first=NULL;
+    al->end=NULL;
+    return al;
+}
+
+Aux_di* create_di(){
+    Aux_di* di = (Aux_di*)malloc(sizeof(Aux_di));
+    di->first=NULL;
+    di->end=NULL;
+    return di;
+}
 
 void append_disciplina(Aux_di *di){
     char nome[DIM];

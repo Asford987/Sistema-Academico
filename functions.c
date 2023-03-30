@@ -56,6 +56,35 @@ void store_data(FILE* f){
 
 }
 
+Aux_al* completar_aluno(){
+    FILE* f = fopen("alunos.txt", "r");
+    if(f==NULL) return create_al();
+    while(!feof(f)){
+
+    }
+}
+
+Aux_di* completar_disciplina(){
+    FILE* f = fopen("disciplinas.txt", "r");
+    if(f==NULL) return create_di();
+}
+
+Semestre* completar_semestre(char* nome){
+    FILE* f = fopen(strcat(strcat("semestre",nome),".txt"), "r");
+    if(f==NULL) return create_sem();
+}
+
+void save_al(Aux_al* al){
+
+}
+
+void save_di(Aux_di* di){
+
+}
+
+void save_semester(Semestre* sem){
+
+}
 // list_aluno* retrieve_student_data(char* file_name){
 //     FILE* f = fopen(file_name,"r");
 //     if(f == NULL){
@@ -73,7 +102,6 @@ void store_data(FILE* f){
 //         i+=step;
 //     }
 // }
-
 // list_disciplina* retrieve_discipline_data(char* file_name){
 //     FILE* f = fopen(file_name,"r");
 //     if(f == NULL){

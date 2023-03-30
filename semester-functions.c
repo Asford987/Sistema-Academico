@@ -1,6 +1,14 @@
 #include "includes.h"
 
 
+Semestre* create_sem(){
+    Semestre* sem = (Semestre*)malloc(sizeof(Semestre));
+    sem->first=NULL;
+    sem->end=NULL;
+    return sem;
+}
+
+
 Aluno_Disciplina* buscar_aluno_disciplina(Aluno *aluno,Disciplina *disciplina,Semestre *sem){
     Aluno_Disciplina *aux=sem->first;
     while(aux!=NULL){
