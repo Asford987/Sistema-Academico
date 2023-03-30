@@ -10,30 +10,30 @@ float rng_f(){
     return (float)(rand() % 100);
 }
 
-int rng_a(){
-    int aux = rand() % 100000;
-    if(1){ // TODO: verificar se ja existe
-        return aux;
-    }else{
-        return rng_a();
+int rng_codigo_aluno(){
+    FILE* f = fopen(".codaluno.txt", "r");
+    int num = rand() % 100000;
+    int aux;
+    while(!feof(f)){
+        fscanf(f,"%d",&aux);
+        if(num == aux) return rng_codigo_aluno();    
     }
-    
+    FILE* f = fopen(".codaluno.txt","a");
+    fprintf(f,"%d",num);
+    return num;
 }
 
-int rng_d(){
-    int aux = rand() % 10000;
-    if(1){ // TODO: verificar se ja existe
-        return aux;
-    }else{
-        return rng_d();
+int rng_codigo_disciplina(){
+    FILE* f = fopen(".codis.txt", "r");
+    int num = rand() % 100000;
+    int aux;
+    while(!feof(f)){
+        fscanf(f,"%d",&aux);
+        if(num == aux) return rng_codigo_disciplina();    
     }
-}
-
-int array_comparator(int* a, int* b){
-    for(int i=0;i<sizeof(a)/sizeof(a[0]);i++){
-        if(a[i]!=b[i]) return 0;
-    }
-    return 1;
+    FILE* f = fopen(".codis.txt","a");
+    fprintf(f,"%d",num);
+    return num;
 }
 
 Aux_al* completar_aluno(){
