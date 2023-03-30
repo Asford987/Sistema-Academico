@@ -1,18 +1,21 @@
 #include "includes.h"
 
 
+Aluno* new_al(){
+    return (Aluno*)calloc(1,sizeof(Aluno));
+}
+
+Disciplina* new_di(){
+    return (Disciplina*)calloc(1,sizeof(Disciplina));
+}
+
 Aux_al* create_al(){
-    Aux_al* al = (Aux_al*)malloc(sizeof(Aux_al));
-    al->first=NULL;
-    al->end=NULL;
-    return al;
+    return (Aux_al*)calloc(1,sizeof(Aux_al));
+    
 }
 
 Aux_di* create_di(){
-    Aux_di* di = (Aux_di*)malloc(sizeof(Aux_di));
-    di->first=NULL;
-    di->end=NULL;
-    return di;
+    return (Aux_di*)calloc(1,sizeof(Aux_di));
 }
 
 void append_disciplina(Aux_di *di){

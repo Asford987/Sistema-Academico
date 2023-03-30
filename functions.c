@@ -36,31 +36,32 @@ int array_comparator(int* a, int* b){
     return 1;
 }
 
-void store_data(FILE* f){
-    f = fopen("dados.txt","w");
-    if(f==NULL){
-        int d = 0;
-        printf("Falha em abrir arquivo!\n");
-        printf("Tentar novamente: 1\nCancelar: 2\n");
-        scanf("%d",&d);
-        if(d == 2){
-            char c='\0';
-            printf("Tem certeza? Todos os dados serão perdidos (Y/N): ");
-            scanf("%c",&c);
-            printf("\n");
-            if(c == 'y' || c == 'Y') return;
-            else store_data(f);
-        }
-        else store_data(f);
-    }
-
-}
-
 Aux_al* completar_aluno(){
     FILE* f = fopen("alunos.txt", "r");
+    
     if(f==NULL) return create_al();
+    
+    char line[99];
+    int codigo;
+    char nome[70];
+    char cpf[12];
     while(!feof(f)){
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        codigo = stoi(line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        strcpy(nome,line);
+        if(fscanf(f, "%99[^\n]\n", line) != 1){
+            return NULL;
+        }
+        strcpy(cpf,line);
 
+
+
+        fscanf(f, "%99[^\n]\n", line);
     }
 }
 
@@ -83,23 +84,19 @@ Semestre* completar_semestre(char* nome){
 void save_al(Aux_al* al){
     FILE* f = fopen("alunos.txt", "w");
     if(f==NULL) return;
-    char line[99];
-    int i = 0;
-    int codigo;
-    char nome[70];
-    char cpf[12];
-    while(fscanf(f, "%99[^\n]\n", line) == 1){
-        if(!(i%3)){
-            // terminar manip aqui
-            codigo = stoi(line);
-        } else if(i%3 == 1){
+    
+    // while{
+    //     if(!(i%3)){
+    //         // terminar manip aqui
+    //         codigo = stoi(line);
+    //     } else if(i%3 == 1){
+    //         nome = line;
+    //     }
+    //     else{
 
-        }
-        else{
-
-        }
-        i++;
-    }
+    //     }
+    //     i++;
+    // }
 
 }
 
