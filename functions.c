@@ -6,10 +6,6 @@
 //     srand((unsigned) time(&t));
 // }
 
-// float rng_f(){
-//     return (float)(rand() % 100);
-// }
-
 // int rng_codigo_aluno(){
 //     FILE* f = fopen(".codaluno.txt", "r");
 //     int num = rand() % 100000;
@@ -19,9 +15,9 @@
 //         if(num == aux) return rng_codigo_aluno();    
 //     }
 //     fclose(f);
-//     FILE* g = fopen(".codaluno.txt","a");
-//     fprintf(g,"%d",num);
-//     fclose(g);
+//     f = fopen(".codaluno.txt","a");
+//     fprintf(f,"%d",num);
+//     fclose(f);
 //     return num;
 // }
 
@@ -34,9 +30,9 @@
 //         if(num == aux) return rng_codigo_disciplina();    
 //     }
 //     fclose(f);
-//     FILE* g = fopen(".codis.txt","a");
-//     fprintf(g,"%d",num);
-//     fclose(g);
+//     f = fopen(".codis.txt","a");
+//     fprintf(f,"%d",num);
+//     fclose(f);
 //     return num;
 // }
 
@@ -62,7 +58,7 @@ Aux_al* completar_aluno(){
         }
         strcpy(cpf,line);
 
-        input_aluno(al,nome, codigo, cpf);
+        append_aluno(al,nome, codigo, cpf);
     }
     fclose(f);
     return al;
@@ -100,7 +96,7 @@ Aux_di* completar_disciplina(){
         creditos = atof(line);
         printf("%d",creditos);
 
-        input_disciplina(di, nome, prof, codigo, creditos);
+        append_disciplina(di, nome, prof, codigo, creditos);
     }
     fclose(f);
     return di;

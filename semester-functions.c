@@ -209,13 +209,6 @@ void menu_semestre(Semestre *sem,Aux_al *al,Aux_di *di){
             break;
     }
     menu_semestre(sem,al,di);
-
-
-    //inserçao
-    //remoçao
-    //consultas de disciplinas de um aluno
-    //consultas dos alunos em uma disciplina
-    //salvamento (obrigatorio?)
 }
 
 void menu_alunos(Aux_al *al,Aux_di *di){
