@@ -1,8 +1,10 @@
 #include "includes.h"
 
 
-Semestre* create_sem(){
-    return (Semestre*)calloc(1,sizeof(Semestre));
+Semestre* create_sem(char*nome){
+    Semestre *sem=(Semestre*)calloc(1,sizeof(Semestre));
+    strcpy(sem->nome,nome);
+    return sem;
 }
 
 Aluno_Disciplina* create_node(){
@@ -229,11 +231,9 @@ void menu_alunos(Aux_al *al,Aux_di *di){
             scanf("%s",nome);
             //nesse ponto ele pega monta a lista encadeada pelo arquivo .txt, caso o arquivo .txt esteja vazio ele faz end e first ser nulo
             //sem=complete_semestre(nome)
-            sem->end=NULL;
-            sem->first=NULL;
-            strcpy(sem->nome,nome);
+            sem=completar_semestre(nome,al,di);
             menu_semestre(sem,al,di);
-            //save_sem();
+            save_sem(sem);
             free_semestre(sem);
             break;
         case 1:

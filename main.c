@@ -4,8 +4,8 @@
 
 
 int main(){
-    Aux_al *al=create_al();
-    Aux_di *di=create_di();
+    Aux_al *al=completar_aluno();
+    Aux_di *di=completar_disciplina();
     menu_alunos(al,di);
     save_al(al);
     save_di(di);

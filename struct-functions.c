@@ -21,6 +21,7 @@ Aux_di* create_di(){
 int input_disciplina(Aux_di *di, char *nome, char *prof, int codigo, int creditos){
     Disciplina *aux=di->first;
     while(aux!=NULL){
+        printf("!");
         if(aux->codigo==codigo){
             printf("Essa Disciplina ja esta na cadastrada\n");
             return 0;
