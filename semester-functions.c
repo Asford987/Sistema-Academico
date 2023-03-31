@@ -186,7 +186,10 @@ void print_alu_di(Aux_al *al,Aux_di *di,Semestre *sem){
 }
 
 void menu_semestre(Semestre *sem,Aux_al *al,Aux_di *di){
-    printf("Voce esta no semestre %s\nO que voce deseja fazer?\n",sem->nome);
+    printf("=============================\n\n");
+    printf("SEMESTRE %s\n\n",sem->nome);
+    printf("=============================\n\n");
+    printf("O que deseja fazer?\n");
     printf("1 - cadastrar um aluno em uma disciplina\n2 - Remover um aluno de uma disciplina\n3 - Consultar as disciplinas de um aluno\n4 - Consultar os alunos cadastrados em uma disciplina\n5 - Sair\n");
     int opcao;
     scanf("%d",&opcao);
@@ -212,7 +215,10 @@ void menu_semestre(Semestre *sem,Aux_al *al,Aux_di *di){
 }
 
 void menu_alunos(Aux_al *al,Aux_di *di){
-    printf("Voce esta no menu principal\nO que voce deseja fazer?");
+    printf("=============================\n\n");
+    printf("MENU PRINCIPAL\n\n");
+    printf("=============================\n\n");
+    printf("O que voce deseja fazer?");
     printf("\n0 - Entrar em um semestre\n1 - Ver os alunos cadastrados\n2 - Ver as disciplinas cadastradas\n3 - adicionar novos alunos\n4 - adiconar novas disciplinas\n5 - remover algum aluno\n6 - remover alguma disciplina\n7 - Sair\n");
     int opcao;
     scanf("%d",&opcao);
@@ -249,7 +255,6 @@ void menu_alunos(Aux_al *al,Aux_di *di){
             break;
         case 7:
             return;
-            break;
         default:
             break;
     }
