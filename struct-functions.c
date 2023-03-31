@@ -20,7 +20,6 @@ Aux_di* create_di(){
 int append_disciplina(Aux_di *di, char *nome, char *prof, int codigo, int creditos){
     Disciplina *aux=di->first;
     while(aux!=NULL){
-        printf("!");
         if(aux->codigo==codigo){
             printf("Essa Disciplina ja esta na cadastrada\n");
             return 0;
@@ -108,19 +107,33 @@ void input_aluno(Aux_al *al){
 
 void print_al(Aux_al *al){
     Aluno *aux=al->first;
+    if(aux==NULL){
+        printf("\nNenhuma Aluno Cadastrado\n\n");
+        return;
+    }
+    printf("=============================\n\n");
+    printf("ALUNOS:\n\n");
     while(aux!=NULL){
-        printf("%s - %d\n",aux->nome,aux->codigo);
+        printf("\nNome: %s\nCodigo: %d\nCpf: %s\n\n",aux->nome,aux->codigo,aux->cpf);
         aux=aux->prox;
     }
+    printf("=============================\n\n");
     return;
 }
 
 void print_di(Aux_di *di){
     Disciplina *aux=di->first;
+    if(aux==NULL){
+        printf("\nNenhuma Disciplina Cadastrada\n\n");
+        return;
+    }
+    printf("=============================\n\n");
+    printf("DISCIPLINAS:\n\n");
     while(aux!=NULL){
-        printf("%s - %d\n",aux->nome,aux->codigo);
+        printf("Nome: %s\nCodigo: %d\nProfessor: %s\nCreditos: %d\n\n",aux->nome,aux->codigo,aux->prof,aux->creditos);
         aux=aux->prox;
     }
+    printf("=============================\n\n");
     return;
 }
 

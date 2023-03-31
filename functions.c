@@ -38,23 +38,23 @@
 
 Aux_al* completar_aluno(){
     FILE* f = fopen("alunos.txt", "r");
-    if(f==NULL) return create_al();
+    Aux_al* al=create_al();
+    if(f==NULL) return al;
     char line[100];
     int codigo;
     char nome[DIM];
     char cpf[DIM];
-    Aux_al* al=create_al();
     while(!feof(f)){
         if(fscanf(f, "%99[^\n]\n", line) != 1){
-            return NULL;
+            return al;
         }
         codigo = atoi(line);
         if(fscanf(f, "%99[^\n]\n", line) != 1){
-            return NULL;
+            return al;
         }
         strcpy(nome,line);
         if(fscanf(f, "%99[^\n]\n", line) != 1){
-            return NULL;
+            return al;
         }
         strcpy(cpf,line);
 
@@ -79,22 +79,18 @@ Aux_di* completar_disciplina(){
             return NULL;
         }
         codigo = atoi(line);
-        printf("%d",codigo);
         if(fscanf(f, "%99[^\n]\n", line) != 1){
             return NULL;
         }
         strcpy(prof,line);
-        printf("%s",prof);
         if(fscanf(f, "%99[^\n]\n", line) != 1){
             return NULL;
         }
         strcpy(nome,line);
-        printf("%s",nome);
         if(fscanf(f, "%99[^\n]\n", line) != 1){
             return NULL;
         }
         creditos = atof(line);
-        printf("%d",creditos);
 
         append_disciplina(di, nome, prof, codigo, creditos);
     }
@@ -115,6 +111,7 @@ Semestre* completar_semestre(char* nome, Aux_al* al, Aux_di* di){
         fscanf(f,"%d",&codigo_disciplina);
         Aluno* a = buscar_aluno(codigo_aluno,al);
         Disciplina* d = buscar_disciplina(codigo_disciplina,di);
+        if(a==NULL || d==NULL) continue;
         append_aluno_disciplina(a,d,sem);
     }
     fclose(f);
