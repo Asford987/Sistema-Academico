@@ -57,35 +57,35 @@ void insercao_semestre(Semestre *sem,Aux_al *al,Aux_di *di){
         int codigo_al,codigo_di,printar;
         Aluno *aluno;
         Disciplina *disciplina;
-        printf("Voce deseja ver a lista de alunos? (digite 0 para nao ou 1 para sim)");
+        printf("\nVoce deseja ver a lista de alunos? (digite 0 para nao ou 1 para sim) ");
         scanf("%d",&printar);
         if(printar==1) print_al(al);
-        printf("digite o codigo do aluno: ");
+        printf("Digite o codigo do aluno: ");
         scanf("%d",&codigo_al);
         aluno=buscar_aluno(codigo_al,al);
         if(aluno==NULL) {
-            printf("\naluno nao encontrado\n");
+            printf("\nAluno nao encontrado\n");
             printf("\nDeseja tentar novamente? (digite 0 para nao ou 1 para sim) ");
             scanf("%d",&continuar);
             if(continuar==0) break;
             else continue;
         }
         printar=0;
-        printf("Voce deseja ver a lista de disciplinas? (digite 0 para nao ou 1 para sim)");
+        printf("\nVoce deseja ver a lista de disciplinas? (digite 0 para nao ou 1 para sim) ");
         scanf("%d",&printar);
         if(printar==1) print_di(di);
-        printf("digite o codigo da disciplina que voce deseja cadastrar o aluno: ");
+        printf("Digite o codigo da disciplina que voce deseja cadastrar o aluno: ");
         scanf("%d",&codigo_di);
         disciplina= buscar_disciplina(codigo_di,di);
         if(disciplina==NULL){
-            printf("\ndisciplina nao encontrada\n");
+            printf("\nDisciplina nao encontrada\n");
             printf("\nDeseja tentar novamente? (digite 0 para nao ou 1 para sim) ");
             scanf("%d",&continuar);
             if(continuar==0) break;
             else continue;
         }
         if(!append_aluno_disciplina(aluno,disciplina,sem)){
-            printf("o aluno ja esta cadastrado");
+            printf("\nO aluno ja esta cadastrado\n");
         }
         printf("\nDeseja cadastrar mais alunos em disciplinas? (digite 0 para nao ou 1 para sim) ");
         scanf("%d",&continuar);
@@ -97,24 +97,24 @@ void insercao_semestre(Semestre *sem,Aux_al *al,Aux_di *di){
 
 int remove_aluno_disciplina(Semestre *sem,Aux_al *al,Aux_di *di){
     int codigo_al,codigo_di;
-    printf("Digite o codigo do Aluno: ");
+    printf("\nDigite o codigo do Aluno: ");
     scanf("%d",&codigo_al);
     Aluno *aluno=buscar_aluno(codigo_al,al);
     if(aluno==NULL){
-        printf("Nao foi encontrado esse aluno, deseja tentar novamente? (digite 0 para nao ou 1 para sim");
+        printf("\nNao foi encontrado esse aluno, deseja tentar novamente? (digite 0 para nao ou 1 para sim) ");
         int novamente;
         scanf("%d",&novamente);
-        if(novamente==1)return 0;
+        if(novamente==0)return 0;
         else{
             remove_aluno_disciplina(sem,al,di);
             return 0;
         }
     }
-    printf("Digite o codigo da Disciplina: ");
+    printf("\nDigite o codigo da Disciplina: ");
     scanf("%d",&codigo_di);
     Disciplina *disciplina=buscar_disciplina(codigo_di,di);
     if(disciplina==NULL){
-        printf("Nao foi encontrada essa disciplina, deseja tentar novamente? (digite 0 para nao ou 1 para sim");
+        printf("\nNao foi encontrada essa disciplina, deseja tentar novamente? (digite 0 para nao ou 1 para sim) ");
         int novamente;
         scanf("%d",&novamente);
         if(novamente==1)return 0;
@@ -131,6 +131,7 @@ int remove_aluno_disciplina(Semestre *sem,Aux_al *al,Aux_di *di){
     if(aux->aluno==aluno && aux->disciplina==disciplina){
         sem->first=sem->first->prox;
         free(aux);
+        printf("\nAluno Removido\n");
         return 0;
     }
     while(aux->prox!=NULL){
@@ -138,61 +139,67 @@ int remove_aluno_disciplina(Semestre *sem,Aux_al *al,Aux_di *di){
             aux2=aux->prox;
             aux->prox=aux->prox->prox;
             free(aux2);
+            printf("\nAluno Removido\n");
             return 1;
         }
         aux=aux->prox;
     }
+    printf("\nNenhum aluno encontrado nessa disciplina\n");
     return 0;
 }
 
 void print_dis_al(Aux_al *al,Aux_di *di,Semestre *sem){
-    int codigo;
+    int codigo,key=0;
     Aluno *aluno;
     Disciplina *aux=di->first;
-    printf("Digite o codigo do aluno");
+    printf("Digite o codigo do aluno: ");
     scanf("%d",&codigo);
     aluno=buscar_aluno(codigo,al);
     if(aluno==NULL){
-        printf("\nnao foi possivel encontrar um aluno com codigo %d\n\n",codigo);
+        printf("\nNao foi possivel encontrar um aluno com codigo %d\n",codigo);
         return;
     }
-    printf("=============================\n\n");
+    printf("\n=============================\n\n");
     printf("Disciplinas cadastradas do aluno %s:\n\n",aluno->nome);
     while(aux!=NULL){
         if(buscar_aluno_disciplina(aluno,aux,sem)!=NULL){
             printf("%s - %s\n\n",aluno->nome,aux->nome);
+            key=1;
         }
         aux=aux->prox;
     }
-    printf("=============================\n\n");
+    if(key==0) printf("Nenhuma Disciplina Cadastrada\n\n");
+    printf("=============================\n");
     return;
 }
 
 void print_alu_di(Aux_al *al,Aux_di *di,Semestre *sem){
-    int codigo;
+    int codigo,key=0;
     Aluno *aux=al->first;
     Disciplina *disciplina;
     printf("Digite o codigo da disciplina: ");
     scanf("%d",&codigo);
     disciplina=buscar_disciplina(codigo,di);
     if(disciplina==NULL){
-        printf("\nnao foi possivel encontrar uma disciplina com codigo %d\n\n",codigo);
+        printf("\nNao foi possivel encontrar uma disciplina com codigo %d\n",codigo);
         return;
     }
-    printf("=============================\n\n");
+    printf("\n=============================\n\n");
     printf("Alunos cadastrados em %s:\n\n",disciplina->nome);
     while(aux!=NULL){
         if(buscar_aluno_disciplina(aux,disciplina,sem)!=NULL){
-            printf("%s - %s\n",aux->nome,disciplina->nome);
+            printf("%s - %s\n\n",aux->nome,disciplina->nome);
+            key=1;
         }
         aux=aux->prox;
     }
-    printf("=============================\n\n");
+    if(key==0) printf("Nenhum aluno cadastrado\n\n");
+    printf("=============================\n");
     return;
 }
 
 void menu_semestre(Semestre *sem,Aux_al *al,Aux_di *di){
-    printf("Voce esta no semestre %s\nO que voce deseja fazer?\n",sem->nome);
+    printf("\nVoce esta no semestre %s\nO que voce deseja fazer?\n",sem->nome);
     printf("1 - cadastrar um aluno em uma disciplina\n2 - Remover um aluno de uma disciplina\n3 - Consultar as disciplinas de um aluno\n4 - Consultar os alunos cadastrados em uma disciplina\n5 - Sair\n");
     int opcao;
     scanf("%d",&opcao);

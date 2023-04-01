@@ -21,7 +21,7 @@ int append_disciplina(Aux_di *di, char *nome, char *prof, int codigo, int credit
     Disciplina *aux=di->first;
     while(aux!=NULL){
         if(aux->codigo==codigo){
-            printf("Essa Disciplina ja esta na cadastrada\n");
+            printf("\nEssa Disciplina ja esta na cadastrada\n");
             return 0;
         }
         aux=aux->prox;
@@ -52,7 +52,7 @@ void input_disciplina(Aux_di *di){
     char prof[DIM];
     int codigo;
     int creditos;
-    printf("Digite o nome da Disciplina: ");
+    printf("\nDigite o nome da Disciplina: ");
     scanf("%s",nome);
     printf("\nDigite o nome do professor: ");
     scanf("%s",prof);
@@ -67,7 +67,7 @@ int append_aluno(Aux_al *al, char *nome, int codigo, char* cpf){
     Aluno *aux=al->first;
     while(aux!=NULL){
         if(aux->codigo==codigo){
-            printf("Esse aluno ja esta cadastrado\n");
+            printf("\nEsse aluno ja esta cadastrado\n");
             return 0;
         }
         aux=aux->prox;
@@ -96,7 +96,7 @@ void input_aluno(Aux_al *al){
     char nome[DIM];
     int codigo;
     char cpf[CPF];
-    printf("Digite o nome: ");
+    printf("\nDigite o nome: ");
     scanf("%s",nome);
     printf("\nDigite o codigo do aluno: ");
     scanf("%d",&codigo);
@@ -111,7 +111,7 @@ void print_al(Aux_al *al){
         printf("\nNenhuma Aluno Cadastrado\n\n");
         return;
     }
-    printf("=============================\n\n");
+    printf("\n=============================\n\n");
     printf("ALUNOS:\n\n");
     while(aux!=NULL){
         printf("\nNome: %s\nCodigo: %d\nCpf: %s\n\n",aux->nome,aux->codigo,aux->cpf);
@@ -127,7 +127,7 @@ void print_di(Aux_di *di){
         printf("\nNenhuma Disciplina Cadastrada\n\n");
         return;
     }
-    printf("=============================\n\n");
+    printf("\n=============================\n\n");
     printf("DISCIPLINAS:\n\n");
     while(aux!=NULL){
         printf("Nome: %s\nCodigo: %d\nProfessor: %s\nCreditos: %d\n\n",aux->nome,aux->codigo,aux->prof,aux->creditos);
@@ -143,6 +143,7 @@ void cadastrar_alunos(Aux_al *al){
         input_aluno(al);
         printf("\nDeseja cadastrar mais alunos? (digite 0 para nao ou 1 para sim) ");
         scanf("%d",&continuar);
+        printf("\n");
     }
     while(continuar);
 }
@@ -153,6 +154,7 @@ void cadastrar_disciplinas(Aux_di *di){
         input_disciplina(di);
         printf("\nDeseja cadastrar mais disciplinas? (digite 0 para nao ou 1 para sim) ");
         scanf("%d",&continuar);
+        printf("\n");
     }
     while(continuar);
 }
@@ -160,12 +162,16 @@ void cadastrar_disciplinas(Aux_di *di){
 void remove_al(Aux_al *al){
     int codigo;
     Aluno *aux=al->first,*aux2;
-    printf("digite o codigo do aluno:");
+    printf("\nDigite o codigo do aluno: ");
     scanf("%d",&codigo);
-    if(aux==NULL) return;
+    if(aux==NULL){
+        printf("\n\nNao foi possivel encontrar o aluno com codigo %d. Digite novamente\n",codigo);
+        return;
+    }
     if(aux->codigo==codigo){
         al->first=al->first->prox;
         free(aux);
+        printf("\nAluno removido\n\n");
         return;
     }
     else{
@@ -174,24 +180,30 @@ void remove_al(Aux_al *al){
                 aux2=aux->prox;
                 aux->prox=aux->prox->prox;
                 free(aux2);
+                printf("\nAluno removido\n\n");
                 return;
             }
             aux=aux->prox;
         }
-        printf("Nao foi possivel encontrar o aluno com codigo %d. Digite novamente\n",codigo);
+        printf("\n\nNao foi possivel encontrar o aluno com codigo %d. Digite novamente\n",codigo);
         return;
     }
+
 }
 
 void remove_di(Aux_di *di){
     int codigo;
     Disciplina *aux=di->first,*aux2;
-    printf("digite o codigo da disciplina:");
+    printf("\nDigite o codigo da disciplina: ");
     scanf("%d",&codigo);
-    if(aux==NULL)return;
+    if(aux==NULL){
+        printf("\n\nNao foi possivel encontrar o aluno com codigo %d. Digite novamente\n",codigo);
+        return;
+    }
     if(aux->codigo==codigo){
         di->first=di->first->prox;
         free(aux);
+        printf("\nDisciplina removida\n\n");
         return;
     }
     else{
@@ -200,11 +212,12 @@ void remove_di(Aux_di *di){
                 aux2=aux->prox;
                 aux->prox=aux->prox->prox;
                 free(aux2);
+                printf("\nDisciplina removida\n\n");
                 return;
             }
             aux=aux->prox;
         }
-        printf("Nao foi possivel encontrar o aluno com codigo %d. Digite novamente\n",codigo);
+        printf("\n\nNao foi possivel encontrar o aluno com codigo %d. Digite novamente\n",codigo);
         return;
     }
 }
