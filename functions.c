@@ -1,41 +1,6 @@
 #include "includes.h"
 
 
-// void set_rng(){
-//     time_t t;
-//     srand((unsigned) time(&t));
-// }
-
-// int rng_codigo_aluno(){
-//     FILE* f = fopen(".codaluno.txt", "r");
-//     int num = rand() % 100000;
-//     int aux;
-//     while(!feof(f)){
-//         fscanf(f,"%d",&aux);
-//         if(num == aux) return rng_codigo_aluno();    
-//     }
-//     fclose(f);
-//     f = fopen(".codaluno.txt","a");
-//     fprintf(f,"%d",num);
-//     fclose(f);
-//     return num;
-// }
-
-// int rng_codigo_disciplina(){
-//     FILE* f = fopen(".codis.txt", "r");
-//     int num = rand() % 100000;
-//     int aux;
-//     while(!feof(f)){
-//         fscanf(f,"%d",&aux);
-//         if(num == aux) return rng_codigo_disciplina();    
-//     }
-//     fclose(f);
-//     f = fopen(".codis.txt","a");
-//     fprintf(f,"%d",num);
-//     fclose(f);
-//     return num;
-// }
-
 Aux_al* completar_aluno(){
     FILE* f = fopen("alunos.txt", "r");
     Aux_al* al=create_al();

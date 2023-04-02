@@ -224,23 +224,26 @@ void menu_semestre(Semestre *sem,Aux_al *al,Aux_di *di){
     menu_semestre(sem,al,di);
 }
 
-void menu_alunos(Aux_al *al,Aux_di *di){
+void menu_alunos(Aux_al *al,Aux_di *di, Semestre *sem){
     printf("Voce esta no menu principal\nO que voce deseja fazer?");
-    printf("\n0 - Entrar em um semestre\n1 - Ver os alunos cadastrados\n2 - Ver as disciplinas cadastradas\n3 - adicionar novos alunos\n4 - adiconar novas disciplinas\n5 - remover algum aluno\n6 - remover alguma disciplina\n7 - Sair\n");
+    printf("\n0 - Entrar em um semestre\n1 - Ver os alunos cadastrados\n2 - Ver as disciplinas cadastradas\n3 - adicionar novos alunos\n4 - adiconar novas disciplinas\n5 - remover algum aluno\n6 - remover alguma disciplina\n7 - Salvar\n8 - Sair\n");
     int opcao;
     scanf("%d",&opcao);
-    Semestre *sem=(Semestre*)malloc(sizeof(Semestre));
     switch (opcao){
         case 0:
-            printf("\nQual semestre voce quer entrar?\n");//nesse ponto ele mostra a lista de semestres que já existem e pede pro usuario escolher um, o semestre pode estar vazio
+            if(sem -> first != NULL){
+                int choice;
+                printf("Voce ja fez alteracoes em um semestre anterior. Deseja salva-las?\n0 - Nao\n1 - Sim\n2 - Cancelar\n");
+                scanf("%d",&choice);
+                if(choice == 1) save_sem(sem);
+                if(choice == 2) menu_alunos(al,di, sem);
+            }
+            sem=create_sem("");
+            printf("\nQual semestre voce quer entrar?\n");
             char nome[DIM2];
             scanf("%s",nome);
-            //nesse ponto ele pega monta a lista encadeada pelo arquivo .txt, caso o arquivo .txt esteja vazio ele faz end e first ser nulo
-            //sem=complete_semestre(nome)
             sem=completar_semestre(nome,al,di);
             menu_semestre(sem,al,di);
-            save_sem(sem);
-            free_semestre(sem);
             break;
         case 1:
             print_al(al);
@@ -261,10 +264,14 @@ void menu_alunos(Aux_al *al,Aux_di *di){
             remove_di(di);
             break;
         case 7:
+            save_sem(sem);
             return;
+        case 8:
+            save_sem(sem);
+            free_semestre(sem);
             break;
         default:
             break;
     }
-    menu_alunos(al,di);
+    menu_alunos(al,di, sem);
 }

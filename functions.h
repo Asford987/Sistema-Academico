@@ -1,9 +1,5 @@
 #include "includes.h"
 
-void set_rng();
-float rng_f();
-int rng_a();
-int rng_d();
 int array_comparator(int* a, int* b);
 void store_data(FILE* f);
 void save_al(Aux_al* al);
