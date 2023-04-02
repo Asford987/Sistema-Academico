@@ -1,11 +1,11 @@
 12
-peruano
-fisica
+Moraes
+mecanica
 9
 
 22
-sa
-re
+zao
+algebra linear
 0
 
 98
