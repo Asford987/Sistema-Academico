@@ -236,7 +236,7 @@ void menu_alunos(Aux_al *al,Aux_di *di, Semestre *sem){
                 printf("Voce ja fez alteracoes em um semestre anterior. Deseja salva-las?\n0 - Nao\n1 - Sim\n2 - Cancelar\n");
                 scanf("%d",&choice);
                 if(choice == 1) save_sem(sem);
-                if(choice == 2) menu_alunos(al,di, sem);
+                if(choice == 2) {menu_alunos(al,di, sem); return;}
             }
             sem=create_sem("");
             printf("\nQual semestre voce quer entrar?\n");
